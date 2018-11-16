@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+
+.arrow{
+
+    image-resolution: 1000dpi;
+
+}
+
+#holder{
+	padding: 2rem;
+}
+
+#card{
+  position: relative;
+  margin: 5% auto;
+  height: 400px;
+  background: #343A40;
+  font-family: "Montserrat",sans-serif;
+  width: 20rem;
+  border-radius: 5px;
+  transition: transform .2s;
+  color: #fff; 
+}
+
+#card:hover{
+	box-shadow: 0px 0px 10px rgba(255, 255, 255, 1);	
+  width: 25rem;
+  height: 450px;
+  transition: transform .2s;
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5);
+}
+
+/*.zoom{
+    
+    transition: transform .2s;
+    width: 25rem;
+    height: 200px;
+    margin: 0 auto;
+    /*box-shadow: 0px 0px 10px rgba(255, 255, 255, 1);  */
+}
+
+/*.zoom:hover {
+    -ms-transform: scale(1.5); /* IE 9 */
+    /*-webkit-transform: scale(1.5); /* Safari 3-8 */
+    /*transform: scale(1.5); 
+}*/
+
+

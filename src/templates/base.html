@@ -1,0 +1,152 @@
+{% load staticfiles %}
+<html>
+
+	<head>
+		
+		<title>{% block head_title %}MU Edu{% endblock head_title %}</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href='{% static "css/base.css" %}'>
+
+		{% block head_extra %} {% endblock head_extra %}
+
+	</head>
+	
+	<body>
+
+		<div id="fb-root"></div>
+		
+
+		{% if messages %}
+
+		<div class="messages">
+			
+
+		<ul class="messages">
+			
+			{% for message in messages %}
+			<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+
+		</ul>
+		
+
+		</div>
+		{% endif %}
+
+		<div >
+
+		{% block content %}
+
+		{% endblock content %}
+		</div>
+
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.1&appId=276471326338601&autoLogAppEvents=1';
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.5.1/marked.min.js"></script>
+
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			$(".content-markdown").each(function(){
+				var content = $(this).text()
+				var markedContent = marked(content)
+				
+			})
+
+			$(".content-markdown img").each(function(){
+				$(this).addClass("img-responsive");
+			
+		})
+			var titleItem = $("#id_title");
+			
+
+
+			function setTitle(value){
+				$("#preview-title").text(value)
+			}
+
+			setTitle(titleItem.val())
+
+
+			titleItem.keyup(function(){
+				var newContent = $(this).val()
+				setTitle(newContent)
+			})
+
+			var contentItem = $("#id_content");
+
+
+			function setContent(value){
+				var markedContent = marked(value)
+				$("#preview-content").html(markedContent)
+				$("#preview-content img").each(function(){
+					$(this).addClass("img-responsive")
+				})
+			}
+			setContent(contentItem.val())
+
+			contentItem.keyup(function(){
+				var newContent = $(this).val()
+				setContent(newContent)
+			})
+
+			var paraimg = $("id_image");
+
+			function readIMG(input) {
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+
+			            reader.onload = function (e) {
+			            	console.log(e.target.result)
+			           
+			                $('.parallax').css('background-image', 'url("' + e.target.result + '")');
+			                $(".parallax").css('background-size', 'cover');
+			                $(".parallax").each(function(){
+			                	$(this).addClass("img-fluid")
+			                })
+			            }
+
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+
+			function setImage(value){
+				
+				$('input[type="file"]').change(function(e){
+				        
+				        readIMG(this);
+
+				});
+			}
+
+			setImage(paraimg.val())
+		})
+		
+
+
+		
+		
+
+	</script>
+
+	</body>
+
+
+</html>

@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{%  load urlify %}
+{% block content %}
+
+	<html>
+		
+		<head>
+		
+		<style>
+
+		@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+			.parallax {
+			    /* The image used */
+			    background-image: url("{{ instance.image.url }}");
+
+			    /* Set a specific height */
+			    min-height: 500px; 
+
+			    /* Create the parallax scrolling effect */
+			    background-attachment: fixed;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+
+			.fonter{
+				font-family: "Montserrat",sans-serif;
+			}
+
+			.fa {
+			  padding: 20px;
+			  font-size: 30px;
+			  width: 50px;
+			  text-align: center;
+			  text-decoration: none;
+			  margin: 5px 2px;
+			  border-radius: 50%
+			}
+
+			.fa:hover {
+			    opacity: 1;
+			    color: #000;
+			}
+
+			.fa-facebook {
+			  background: #3B5998;
+			  color: white;
+			}
+
+			.fa-twitter {
+			  background: #55ACEE;
+			  color: white;
+			}
+
+			.fa-google {
+			  background: #dd4b39;
+			  color: white;
+			}
+
+			.fa-linkedin {
+			  background: #007bb5;
+			  color: white;
+			}
+
+			.fa-reddit {
+			  background: #ff5700;
+			  color: white;
+			}
+
+			#userdrop{
+				float: right; 
+				color:#fff;
+			}
+
+
+
+
+		</style>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" type="text/css" href='{% static "css/postsdet.css" %}'>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+		</script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		  <script type="text/javascript">
+		  	console.log("hello");
+		  	console.log("{{ instance.image.url }}");
+		  </script>
+		</head>
+
+		<body style="background-color: #000;">
+			
+			<section>
+			
+			<nav class="navbar navbar-expand-lg navbar-dark bg-inverse" style="z-index:10">
+			  <a class="navbar-brand" href="#">Green Global</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav ml-auto">
+			      <li class="nav-item active">
+			        <a class="nav-link" href="http://127.0.0.1:8000/">Home <span class="sr-only">(current)</span></a>
+			      </li>
+
+				{% if user.is_staff %}			     			    
+			      <li class="nav-item">
+			        <a class="nav-link" href="http://127.0.0.1:8000/create">Contribute</a>
+			      </li>
+			    {% endif %}
+				{% if not user.is_authenticated %}
+
+				      <li class="nav-item">
+				        <a class="nav-link" href="http://127.0.0.1:8000/login">Login</a>
+				      </li>
+
+				      <li class="nav-item">
+				        <a class="nav-link" href="http://127.0.0.1:8000/register">Register</a>
+				      </li>
+
+				      
+
+			      {% endif %}
+
+			      {% if user.is_authenticated %}
+
+			      	{% if user.is_staff %}
+
+				      <li class="nav-item">
+				        <a class="nav-link" href="delete">Delete</a>
+				      </li>
+
+				      <li class="nav-item">
+				        <a class="nav-link" href="edit">Edit</a>
+				      </li>
+
+				      {% endif %}
+				      
+
+				     <div class="dropdown">
+				       <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+				         Welcome {{ user.get_full_name }}
+				       </button>
+				       <div class="dropdown-menu">
+				       	{% if user.is_staff or user.is_superuser %}
+				         <a class="dropdown-item" href="http://127.0.0.1:8000/create">Create Post</a>
+				         <a class="dropdown-item" href="delete">Delete</a>
+				         <a class="dropdown-item" href="edit">Edit</a>
+				         {% endif %}
+				         <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Logout</a>
+				         
+				       </div>
+				     </div>
+			      {% endif %}
+
+			      
+			   
+			    </ul>
+			    
+			  </div>
+			</nav>
+
+		</section>
+			<section>
+
+
+					
+					<div class="parallax"></div>	
+					<div style="background-color: #000; height:1000px; color: #fff; padding:4rem;" class="fonter content-markdown">
+						<!--<img src="{{ instance.image.url }}" class="img-fluid parallax" style="width: 100%;" />-->
+						
+							<h1>{{ title }}</h1>
+
+							<small>{% if instance.draft %}<span style="color:crimson; padding-right: 1rem;">Draft </span>{% endif %}{{ instance.publish }}</small><br>
+							<p>By {{ instance.user.get_full_name }}</p>
+
+							<p>
+								<div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>
+
+							</p>
+
+
+
+
+							<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="fa fa-facebook">
+							</a>
+
+							<a href="https://twitter.com/home?status={{ instance.content|truncatechars:80|urlify }}%20{{ request.build_absolute_uri }}" class="fa fa-twitter">
+							
+							</a>
+
+							<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}' class="fa fa-google"></a>
+
+							<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ instance.title }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}" class="fa fa-linkedin">
+							
+							</a>
+
+							<a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ instance.title }}" class="fa fa-reddit"></a>
+
+
+							<div><br></div>
+							<div class="content-markdown">
+								{{ instance.content|linebreaks}}<br>
+							</div>
+							<br>
+							<div style=" color:#fff;" class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-colorscheme="dark"></div>
+							
+
+
+
+					</div>
+
+				
+
+			</section>
+			
+
+		</body>
+
+	</html>
+
+
+
+	{% endblock content %}
+			
+
+		
